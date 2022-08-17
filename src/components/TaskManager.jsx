@@ -1,24 +1,43 @@
 import{list} from 'postcss';
 import React,{useState} from"react";
+import { useEffect } from 'react';
+import{v4 as uuid} from "uuid";
 import TaskItem from "./TaskItem";
 
 
-
 function TaskManager(){
-    const[tasks, setTasks] = useState([]);
+    const[tasks, setTasks] = useState(()=>{
+      //get the task from the localStorage
+      const tasks = localStorage.getItem("tasks");
+      if (!tasks) return [];
+      return JSON.parse(tasks);
+     });
+
   const [input, setInput] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if(input ==="") return;
-        setTasks([input, ...tasks]);
+        
+        const newTask ={
+          id:uuid(),
+          text:input,
+          completed: true,
+        };
+
+        setTasks([newTask, ...tasks]);
         setInput("");
       };
    
-  const handleDelete = (index) =>{
-    const newTasks = tasks.filter((task) =>task!==index);
+  const handleDelete = (id) =>{
+    const newTasks = tasks.filter((task) =>task.id !==id);
 setTasks(newTasks);
-  }
+  };
+
+  useEffect(()=>{
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  },[tasks]);
+
     return(
 <div className="relative h-screen
 bg-blue-600 
@@ -44,7 +63,7 @@ items-center">
 
         <div className="space-y-2 overflow-y-scroll h-56">
            {tasks.map((task) =>(
-            <TaskItem task={task} handleDelete={handleDelete}/>
+            <TaskItem key={task.id} task={task} handleDelete={handleDelete}/>
             ))}
         </div>
         </div>

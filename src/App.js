@@ -6,7 +6,7 @@ import Form from"./components/Form"
 // import Practice from "./components/Practice";
  
 
-// import TaskManager from "./components/TaskManager";
+import TaskManager from "./components/TaskManager";
 
 
 function App() {
@@ -23,8 +23,8 @@ return (
 
   <Image /> */}
   {/* <Practice/> */}
-  {/* <TaskManager/> */}
-  <Form/>
+  <TaskManager/>
+  {/* <Form/> */}
 </div>
 );
 };
