@@ -1,4 +1,5 @@
-import Form from"./components/Form"
+// import Form from"./components/Form"
+import ProductList from "./components/ProductList";
 // import Header from "./components/Header";
 // import Button from "./components/Button";
 // import{ Image } from "./components/Image";
@@ -6,7 +7,7 @@ import Form from"./components/Form"
 // import Practice from "./components/Practice";
  
 
-import TaskManager from "./components/TaskManager";
+// import TaskManager from "./components/TaskManager";
 
 
 function App() {
@@ -23,8 +24,9 @@ return (
 
   <Image /> */}
   {/* <Practice/> */}
-  <TaskManager/>
+  {/* <TaskManager/> */}
   {/* <Form/> */}
+  <ProductList/>
 </div>
 );
 };
