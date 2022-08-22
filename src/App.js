@@ -1,5 +1,6 @@
 // import Form from"./components/Form"
 import ProductList from "./components/ProductList";
+// import Spinner from "./components/Spinner";
 // import Header from "./components/Header";
 // import Button from "./components/Button";
 // import{ Image } from "./components/Image";
@@ -27,6 +28,7 @@ return (
   {/* <TaskManager/> */}
   {/* <Form/> */}
   <ProductList/>
+  {/* <Spinner/> */}
 </div>
 );
 };
