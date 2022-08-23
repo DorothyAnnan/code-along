@@ -64,10 +64,10 @@ items-center">
         <div className="space-y-2 overflow-y-scroll h-56">
            {tasks.map((task) =>(
             <TaskItem key={task.id} task={task} handleDelete={handleDelete}/>
-            ))}
+            ))};
         </div>
         </div>
 </div>
     );
-}
+};
 export default TaskManager;
