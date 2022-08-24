@@ -3,9 +3,11 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
-import ProductList from "./components/ProductList";
+import ProductList from "./pages/ProductList";
 import Navbar from "./components/Navbar";
-import TaskManager from "./components/TaskManager";
+import TaskManager from "./pages/TaskManager";
+import ProductDetail from "./pages/ProductDetail";
+import NotFound from "./pages/NotFound";
 
 // import Spinner from "./components/Spinner";
 // import Header from "./components/Header";
@@ -27,8 +29,9 @@ return (
     <Route path="/task-manager" element={<TaskManager/>}/>
     <Route path="/about" element={<About/>}/>
     <Route path="/products" element={<ProductList/>}/>
+    <Route path="/products/:productId" element={<ProductDetail/>}/>
     <Route path="/contact" element={<Contact/>}/>
-    
+    <Route path="/*" element={<NotFound/>}/>
   </Routes>
 </BrowserRouter>
 </div>

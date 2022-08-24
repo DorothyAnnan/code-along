@@ -1,8 +1,8 @@
 import React,{useEffect,useState}from "react";
 import axios from "axios"
-import Product from "./Product";
+import Product from "../components/Product";
 import useAxios from "../hooks/useAxios";
-import Spinner from "./Spinner";
+import Spinner from "../components/Spinner";
 
 function ProductList() {
     const { data, isLoading,error} =useAxios(
