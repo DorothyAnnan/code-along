@@ -1,23 +1,16 @@
-import{list} from 'postcss';
-import React,{useState} from"react";
-import { useEffect } from 'react';
+import React, { useState, useEffect } from"react";
 import{v4 as uuid} from "uuid";
 import TaskItem from "../components/TaskItem";
+import { useTaskContext } from "../context/taskContext";
 
 
 function TaskManager(){
-    const[tasks, setTasks] = useState(()=>{
-      //get the task from the localStorage
-      const tasks = localStorage.getItem("tasks");
-      if (!tasks) return [];
-      return JSON.parse(tasks);
-     });
-
-  const [input, setInput] = useState("");
+    const { tasks, setValue } = useTaskContext();
+      const [ input, setInput ] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(input ==="") return;
+        if(input === "") return;
         
         const newTask ={
           id:uuid(),
@@ -25,13 +18,13 @@ function TaskManager(){
           completed: true,
         };
 
-        setTasks([newTask, ...tasks]);
+        setValue([newTask, ...tasks]);
         setInput("");
       };
    
   const handleDelete = (id) =>{
     const newTasks = tasks.filter((task) =>task.id !==id);
-setTasks(newTasks);
+setValue(newTasks);
   };
 
   useEffect(()=>{

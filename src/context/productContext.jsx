@@ -1,15 +1,16 @@
 import { createContext, useContext, useState } from "react";
-import { useInRouterContext } from "react-router-dom";
 
 export const ProductContext = createContext({
     products:[],
     setProducts:(products)=>{},
 });
 
-export const ProductContextProvider=({children})=>{
-    const[products, setValue]=useState([]);
+export const ProductContextProvider = ({ children }) => {
+    const [ products, setValue ] = useState([]);
 
-    const setProducts =(products)=>setValue(products);
+    const setProducts = (products) => {
+        console.log(products)
+        setValue(products);}
 
     return(
         <ProductContext.Provider value={{ products, setProducts}}>

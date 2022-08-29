@@ -8,25 +8,25 @@ function ProductList() {
     // const { data, isLoading,error} =useAxios(
     // "http://api.escuelajs.co/api/v1/products"
     // );
-    const { data, isLoading, error} =useAxios(
+    const { data, isLoading, error} = useAxios(
     "https://fakestoreapi.com/products"
     );
-const { products, setProducts} = useProductContext();
+
+const { products, setProducts } = useProductContext();
+
     
 useEffect(() => {
   setProducts(data);
  }, [data]);
 
 if(isLoading) {
-  return<Spinner/>;
-}
-  
+  return<Spinner />;
+}  
 
 if(error){ 
   return <p>{error}</p>;
 }
 
-console.log(products);
 
   return (
     <div className="flex flex-wrap gap-10 justify-center pt-10">
