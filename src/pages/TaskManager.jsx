@@ -1,66 +1,87 @@
-import React, { useState, useEffect } from"react";
-import{v4 as uuid} from "uuid";
-import TaskItem from "../components/TaskItem";
-import { useTaskContext } from "../context/taskContext";
+import React, { useEffect, useState } from 'react'
+import { v4 as uuid } from "uuid";
+import TaskItem from '../components/TaskItem';
+import { useTaskContext } from '../context/taskContext';
 
 
-function TaskManager(){
-    const { tasks, setValue } = useTaskContext();
-      const [ input, setInput ] = useState("");
+const TaskManager = () => {
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if(input === "") return;
-        
-        const newTask ={
-          id:uuid(),
-          text:input,
-          completed: true,
-        };
+const {tasks, setValue} = useTaskContext();
+ const [input, setInput] = useState("");
 
-        setValue([newTask, ...tasks]);
-        setInput("");
-      };
-   
-  const handleDelete = (id) =>{
-    const newTasks = tasks.filter((task) =>task.id !==id);
-setValue(newTasks);
+ const handleSubmit=(e)=>{
+  e.preventDefault();
+  if (input ==="") return;
+
+  const newTask = {
+   id : uuid(),
+   text : input,
+   completed : false,
   };
 
-  useEffect(()=>{
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  },[tasks]);
+ 
+  setValue([newTask, ...tasks])
+  setInput("");
 
-    return(
-<div className="relative h-screen
-bg-blue-600 
-flex 
-justify-center 
-items-center">
 
-    <div className="max-w-xl w-full max-h-96 bg-white rounded-xl px-5 py-10">
-        <form className="space-x-5 flex w-[30rem] mb-10"
-        onSubmit={handleSubmit}
-        >
-            <input
-             type="text" 
-             className="border-2 border-blue-400 p-2 rounded-md outline-none w-10/12"
-             onChange={(e) => setInput(e.target.value)}
-            value={input}
-            />
-            <button type="submit" className="bg-blue-600 text-white text-lg py-2 px-5 rounded-md"
-            disabled={input === ""}
-            >
-                Add</button>
-        </form>
+}
+const handleCompleted = (id) => {
+  const newTasks =tasks.map((task) =>{
+    if (task.id ===id) {
+      return {
+        ...task,
+        completed: !task.completed,
+      };
+    }
+    return task;
+  });
+  setValue(newTasks);
 
-        <div className="space-y-2 overflow-y-scroll h-56">
-           {tasks.map((task) =>(
-            <TaskItem key={task.id} task={task} handleDelete={handleDelete}/>
-            ))};
-        </div>
-        </div>
-</div>
-    );
 };
+const handleEdit =(id)=>{
+  const newTasks = tasks.filter((task)=>{
+    if (task.id === id) {
+    setInput(task.text);
+    return false;
+    } 
+    return task;
+  });
+}
+const handleDelete = (id) => {
+  const newTasks = tasks.filter((task) => task.id !== id);
+  setValue(newTasks);
+};
+
+useEffect(()=>{
+  localStorage.setItem("task",JSON.stringify(tasks))
+
+},[tasks]);
+
+  return (
+    <div className="h-screen bg-blue-600 flex justify-center items-center">
+      <div className="max-w-xl bg-white rounded-xl py-10 px-5 max-h-96">
+        <form className="space-x-5 flex w-[30rem] mb-10" onSubmit={handleSubmit}>
+         <input type="text" className="border-2 border-blue-400 p-2 rounded-md outline-none w-10/12"
+         onChange={(e)=>setInput(e.target.value)}
+         value={input}
+         />
+         <button type="submit"  className="bg-blue-600 px-7 py-2 text-white text-lg rounded-md">Add</button>
+        </form>
+        <div className="space-y-2 overflow-y-auto h-56">
+        {tasks.map((task)=> <TaskItem
+         key={task.id} 
+         task={task} 
+          handleDelete={handleDelete}
+          handleCompleted={handleCompleted}
+          handleEdit={handleEdit}
+          />
+          )}
+        </div>
+      </div>  
+    </div>
+  );
+}
+
 export default TaskManager;
+
+
